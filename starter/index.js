@@ -45,7 +45,6 @@ const addManager = () => {
         },
     ])
 
-     // function to output data
      .then((answers) => {
         console.log (answers);
         const manager = new Manager(answers.name, answers.id, answers.email, answers.officeNumber);
@@ -136,7 +135,7 @@ const addIntern = () => {
         {
             type: 'input',
             name: 'school',
-            message: "What is the intern's school:",
+            message: "Name of the intern's school:",
         }
 
     ])
@@ -150,11 +149,11 @@ const addIntern = () => {
 };
 
 
-// Function to build the team
+// Function to create the team
 function addTeam() {
     console.log("Team:", team);
     fs.writeFileSync(outputPath, render(team), "utf-8");
-    console.log("You have successfully created a team!");
+    console.log("Team Created");
 }
 
 // Call the function
