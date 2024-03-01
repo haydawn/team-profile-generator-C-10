@@ -50,9 +50,34 @@ const addManager = () => {
         console.log (answers);
         const manager = new Manager(answers.name, answers.id, answers.email, answers.officeNumber);
         team.push(manager);
-        addTeam();
+        addEmployee();
     });
 };
+
+
+
+// Prompt to add more team members
+const addEmployee = () => {
+    inquirer.prompt([
+        {
+            type: 'list',
+            name: 'role',
+            message: 'Add another team member:',
+            choices: ['Engineer', 'Intern', 'Finish Building Team'],
+        },
+    ])
+    .then((answers) => {
+        if (answers.role === 'Engineer') {
+            addEngineer();
+        } else if (answers.role === 'Intern') {
+            addIntern();
+        } else {
+            addTeam();
+        }
+    });
+};
+
+
 
 
 // Prompt for Engineer details
@@ -84,7 +109,7 @@ const addEngineer = () => {
         console.log (answers);
        const engineer = new Engineer(answers.name, answers.id, answers.email, answers.github);
        team.push(engineer);
-       addTeam();
+       addEmployee();
    });
 };
 
@@ -120,7 +145,7 @@ const addIntern = () => {
         console.log (answers);
        const intern = new Intern (answers.name, answers.id, answers.email, answers.school);
        team.push(intern);
-       addTeam();
+       addEmployee();
    });
 };
 
