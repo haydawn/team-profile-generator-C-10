@@ -13,16 +13,20 @@ const render = require("./src/page-template.js");
 
 // TODO: Write Code to gather information about the development team members, and render the HTML file.
 
+if (!fs.existsSync(OUTPUT_DIR)) {
+    fs.mkdirSync(OUTPUT_DIR);
+}
+
 
 const team = [];
 
 // Prompt for Manager details
-const promptManager = () => {
+const addManager = () => {
     return inquirer.prompt([
         {
             type: 'input',
             name: 'name',
-            message: "What is the manager's name:",
+            message: "What is the team manager's name:",
         },
         {
             type: 'input',
@@ -39,11 +43,20 @@ const promptManager = () => {
             name: 'officeNumber',
             message: "Provide the manager's office number:",
         },
-    ]);
+    ])
+
+     // function to output data
+     .then((answers) => {
+        console.log (answers);
+        const manager = new Manager(answers.name, answers.id, answers.email, answers.officeNumber);
+        team.push(manager);
+        addTeam();
+    });
 };
 
+
 // Prompt for Engineer details
-const promptEngineer = () => {
+const addEngineer = () => {
     return inquirer.prompt([
         {
             type: 'input',
@@ -65,11 +78,20 @@ const promptEngineer = () => {
             name: 'github',
             message: "Provide the engineer's GitHub username:",
         },
-    ]);
+    ])
+
+    .then((answers) => {
+        console.log (answers);
+       const engineer = new Engineer(answers.name, answers.id, answers.email, answers.github);
+       team.push(engineer);
+       addTeam();
+   });
 };
 
+
+
 // Prompt for Intern details
-const promptIntern = () => {
+const addIntern = () => {
     return inquirer.prompt([
         {
             type: 'input',
@@ -90,6 +112,27 @@ const promptIntern = () => {
             type: 'input',
             name: 'school',
             message: "What is the intern's school:",
-        },
-    ]);
+        }
+
+    ])
+
+    .then((answers) => {
+        console.log (answers);
+       const intern = new Intern (answers.name, answers.id, answers.email, answers.school);
+       team.push(intern);
+       addTeam();
+   });
 };
+
+
+// Function to build the team
+function addTeam() {
+    console.log("Team:", team);
+    fs.writeFileSync(outputPath, render(team), "utf-8");
+    console.log("You have successfully created a team!");
+}
+
+// Call the function
+addManager();
+
+

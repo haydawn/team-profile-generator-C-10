@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "inquirer": "^9.2.15"
+    "inquirer": "^6.5.0"
   },
   "devDependencies": {
     "jest": "^29.7.0"
